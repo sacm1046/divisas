@@ -7,13 +7,11 @@ const baseUrl = process.env.URL_BASE;
 app.use(express.json());
 
 // Ruta de prueba
-app.get('/:currencyType', async (req, res) => {
-    const url = baseUrl + "/" + req.params.currencyType;
-
-    console.log(url)
+app.get('/:currencyType/:date', async (req, res) => {
+    const url = baseUrl + "/" + req.params.currencyType + "/" + req.params.date;
     const getSeries = await fetch(url);
-    const series = await getSeries.json(); 
-    res.json({ message: 'Hola Mundo', series });
+    const data = await getSeries.json(); 
+    res.json(data.serie[0].valor);
 });
 
 // Iniciar el servidor
