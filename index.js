@@ -8,10 +8,14 @@ app.use(express.json());
 
 // Ruta de prueba
 app.get('/:currencyType/:date', async (req, res) => {
-    const url = baseUrl + "/" + req.params.currencyType + "/" + req.params.date;
-    const getSeries = await fetch(url);
-    const data = await getSeries.json(); 
-    res.json(data.serie[0].valor);
+    try {
+        const url = baseUrl + "/" + req.params.currencyType + "/" + req.params.date;
+        const getSeries = await fetch(url);
+        const data = await getSeries.json();
+        res.json(data.serie[0].valor);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 // Iniciar el servidor
