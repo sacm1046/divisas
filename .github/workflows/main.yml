@@ -9,6 +9,9 @@ jobs:
   test-express:
     runs-on: ubuntu-latest
 
+    env:
+        URL_BASE: ${{ vars.URL_BASE }}
+
     steps:
       - name: Clonar el repositorio
         uses: actions/checkout@v4
@@ -32,7 +35,7 @@ jobs:
         run: | 
             MAX_RETRIES=${{ vars.MAX_RETRIES }}
             COUNT=0
-            URL="http:/localhost:3000/random"
+            URL="http:/localhost:3000/uf"
 
             echo "Iniciando peticiones a $URL"
 
