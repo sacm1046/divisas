@@ -30,7 +30,7 @@ jobs:
 
       - name: Hacer petición GET con reintentos
         run: | 
-            MAX_RETRIES=5
+            MAX_RETRIES=${{ vars.MAX_RETRIES }}
             COUNT=0
             URL="http:/localhost:3000/random"
 
