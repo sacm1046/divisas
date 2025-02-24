@@ -1,18 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const baseUrl = process.env.URL_BASE;
 
-// Middleware para parsear JSON
 app.use(express.json());
 
-// Ruta de prueba
-app.get('/:currencyType/:date', async (req, res) => {
+app.get('/random', async (req, res) => {
     try {
-        const url = baseUrl + "/" + req.params.currencyType + "/" + req.params.date;
-        const getSeries = await fetch(url);
-        const data = await getSeries.json();
-        res.json(data.serie[0].valor);
+        const random = Math.floor(Math.random() * 2);
+        if (random === 0) res.status(500).json(false);
+        else res.status(200).json(true);
     } catch (error) {
         console.log(error);
     }
