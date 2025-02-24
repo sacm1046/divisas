@@ -32,7 +32,7 @@ jobs:
         run: |
           MAX_RETRIES=5
           COUNT=0
-          URL="http://localhost:3000/random"
+          URL="https://divisas-one.vercel.app/random"
 
           echo "Iniciando peticiones a $URL"
 
