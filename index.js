@@ -1,36 +1,43 @@
-const express = require('express');
+import express from "express";
+import Redis from "ioredis";
+
+const baseUrl = process.env.URL_BASE;
+const redisUrl = process.env.REDIS_URL;
+
+const redis = new Redis(redisUrl);
 const app = express();
 const port = 3000;
-const baseUrl = process.env.URL_BASE;
 
 app.use(express.json());
 
-const formatDate = () => {
-    const today = new Date();
-    const day = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
-    const month = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
-    return `${day}-${month}-${today.getFullYear()}`;
-}
-
-app.get('/random', async (req, res) => {
+const storeData = async (data) => {
     try {
-        const random = Math.floor(Math.random() * 2);
-        if (random === 0) res.status(500).json(false);
-        else res.status(200).json(true);
+        return await redis.set("currencies", JSON.stringify(data));
     } catch (error) {
         console.log(error);
+        return;
+    }
+}
+
+app.get('/read', async (req, res) => {
+    try {
+        const data = await redis.get("currencies");
+        res.status(200).json(JSON.parse(data));
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(null);
     }
 });
 
-app.get('/:currencyType', async (req, res) => {
+app.get('/currencies', async (req, res) => {
     try {
-        const formattedDate = formatDate();
-        const url = baseUrl + "/" + req.params.currencyType + "/" + formattedDate;
-        const getSeries = await fetch(url);
-        const data = await getSeries.json();
-        res.json(data.serie[0].valor);
+        const url = baseUrl + "/";
+        const currencies = await fetch(url);
+        const data = await currencies.json();
+        await storeData(data)
+        res.status(200).json("OK");
     } catch (error) {
-        console.log(error);
+        res.status(500).json(null);
     }
 });
 

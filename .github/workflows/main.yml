@@ -11,6 +11,7 @@ jobs:
 
     env:
         URL_BASE: ${{ vars.URL_BASE }}
+        REDIS_URL: ${{ secrets.REDIS_URL }}
 
     steps:
       - name: Clonar el repositorio
@@ -35,7 +36,7 @@ jobs:
         run: | 
             MAX_RETRIES=${{ vars.MAX_RETRIES }}
             COUNT=0
-            URL="http:/localhost:3000/uf"
+            URL="http:/localhost:3000/currencies"
 
             echo "Iniciando peticiones a $URL"
 
