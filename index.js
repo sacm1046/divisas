@@ -1,12 +1,9 @@
 import express from "express";
-import Redis from "ioredis";
-import { storeData } from "./helpers/store-data";
-import { formatData } from "./helpers/format-data";
+import { storeData, getData } from "./helpers/redis.js";
+import { formatData } from "./helpers/format-data.js";
 
 const baseUrl = process.env.URL_BASE;
-const redisUrl = process.env.REDIS_URL;
 
-const redis = new Redis(redisUrl);
 const app = express();
 const port = 3000;
 
@@ -14,7 +11,7 @@ app.use(express.json());
 
 app.get('/read', async (req, res) => {
     try {
-        const data = await redis.get("currencies");
+        const data = await getData("currencies");
         res.status(200).json(JSON.parse(data));
     } catch (error) {
         console.log(error);
@@ -28,15 +25,13 @@ app.get('/currencies', async (req, res) => {
         const currencies = await fetch(url);
         const data = await currencies.json();
         const formatted = formatData(data);
-        await storeData(formatted)
+        await storeData("currencies", formatted)
         res.status(200).json("OK");
     } catch (error) {
         res.status(500).json(null);
     }
 });
 
-
-// Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
