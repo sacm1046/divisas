@@ -49,16 +49,20 @@ app.get('/currencies/redis', async (req, res) => {
     }
 });
 
-app.get('/currencies/json', async (req, res) => {
+const loadJson = async () => {
     try {
         const currencies = await getCurrencies()
         await lowdb.storeData(currencies)
-        res.status(200).json("OK");
     } catch (error) {
         console.log(error);
-        res.status(500).json(null);
     }
-});
+}
+
+if (process.argv.includes("--load-json")) {
+    loadJson()
+        .then(() => process.exit(0))
+        .catch(() => process.exit(1));
+}
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
