@@ -9,6 +9,9 @@ const jsonDb = new Low(new JSONFile("db/db.json"), {});
 
 const storeData = async (data) => {
     try {
+        /** 
+         * para trabajar con arrays usar jsonDb.data.push({ key: object })
+        */
         jsonDb.data = data;
         await jsonDb.write();
     } catch (error) {
