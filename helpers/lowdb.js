@@ -1,9 +1,8 @@
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
-import path from 'path';
+import jsonData from "../db/db.json" assert { type: "json" }
 
-const file = path.join('/tmp', 'db.json');
-const jsonDb = new Low(new JSONFile(file), {});
+const jsonDb = new Low(new JSONFile("db/db.json"), {});
 /** 
  * Si deseo que se sigan agregando elementos al archivo JSON para el caso de un array, debo descomentar las siguiente línea
  * await jsonDb.read();
@@ -21,10 +20,9 @@ const storeData = async (data) => {
     }
 }
 
-const getData = async () => {
+const getData = () => {
     try {
-        await jsonDb.read();
-        return jsonDb.data;
+        return jsonData
     } catch (error) {
         console.log(error);
     }

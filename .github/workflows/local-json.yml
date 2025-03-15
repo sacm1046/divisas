@@ -38,15 +38,16 @@ jobs:
             MAX_RETRIES=${{ vars.MAX_RETRIES }}
             COUNT=0
             URL="http:/localhost:3000/currencies/json"
+            RESPONSE_FILE="/tmp/response.json"
 
             echo "Iniciando peticiones a $URL"
 
             while [ $COUNT -lt $MAX_RETRIES ]; do
-                STATUS_CODE=$(curl -s -o response.json -w "%{http_code}" $URL)
+                STATUS_CODE=$(curl -s -o $RESPONSE_FILE -w "%{http_code}" $URL)
 
                 if [ "$STATUS_CODE" -eq 200 ]; then
                     echo "✅ Servicio respondió con 200"
-                    cat response.json  # Imprimir la respuesta JSON
+                    cat $RESPONSE_FILE  # Imprimir la respuesta JSON
                     break
                 else
                     echo "⚠ Respuesta HTTP: $STATUS_CODE. Reintentando en 3s..."
@@ -59,6 +60,7 @@ jobs:
                 echo "❌ No se obtuvo respuesta 200 después de $MAX_RETRIES intentos."
                 exit 1
             fi
+
 
       - name: Commit de cambios
         run: |

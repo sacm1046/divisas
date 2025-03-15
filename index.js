@@ -29,9 +29,9 @@ app.get('/read/redis', async (req, res) => {
     }
 });
 
-app.get('/read/json', async (req, res) => {
+app.get('/read/json', (req, res) => {
     try {
-        const data = await lowdb.getData()
+        const data = lowdb.getData()
         res.status(200).json(data);
     } catch (error) {
         console.log(error);
