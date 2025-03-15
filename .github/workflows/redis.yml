@@ -7,7 +7,7 @@ on:
 
 jobs:
   redis-save:
-    runs-on: ubuntu-18.04
+    runs-on: 
 
     env:
         URL_BASE: ${{ vars.URL_BASE }}
