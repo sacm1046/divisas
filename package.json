@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node -r dotenv/config index.js",
-    "dev": "nodemon -r dotenv/config index.js"
+    "dev": "nodemon -r dotenv/config index.js",
+    "load-json": "node -r dotenv/config index.js --load-json"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
