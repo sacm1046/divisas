@@ -7,6 +7,9 @@ jobs:
   local-json:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     env:
         URL_BASE: ${{ vars.URL_BASE }}
         REDIS_URL: ${{ secrets.REDIS_URL }}
