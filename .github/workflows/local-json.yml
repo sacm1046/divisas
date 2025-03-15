@@ -31,7 +31,7 @@ jobs:
             MAX_RETRIES=5
             COUNT=0
             while [ $COUNT -lt $MAX_RETRIES ]; do
-                if URL_BASE=${{ vars.URL_BASE }} REDIS_URL=${{ secrets.REDIS_URL }} node index.js --load-json; then
+                if -r dotenv/config node index.js --load-json; then
                     echo "✅ Comando ejecutado con éxito"
                     break
                 else
