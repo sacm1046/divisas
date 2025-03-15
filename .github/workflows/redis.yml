@@ -1,13 +1,13 @@
 name: Ejecutar Express y hacer un GET con reintentos
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
+  # schedule:
+  #   - cron: "0 0 * * *"
 
 jobs:
-  test-express:
-    runs-on: ubuntu-latest
+  redis-save:
+    runs-on: ubuntu-18.04
 
     env:
         URL_BASE: ${{ vars.URL_BASE }}
@@ -36,7 +36,7 @@ jobs:
         run: | 
             MAX_RETRIES=${{ vars.MAX_RETRIES }}
             COUNT=0
-            URL="http:/localhost:3000/currencies"
+            URL="http:/localhost:3000/currencies/redis"
 
             echo "Iniciando peticiones a $URL"
 
