@@ -1,4 +1,4 @@
-name: Ejecutar Express y hacer un GET con reintentos
+name: Local JSON
 
 on:
   workflow_dispatch:
