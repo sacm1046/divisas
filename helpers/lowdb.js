@@ -1,7 +1,9 @@
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
+import path from 'path';
 
-const jsonDb = new Low(new JSONFile("db/db.json"), {});
+const file = path.join('/tmp', 'db.json');
+const jsonDb = new Low(new JSONFile(file), {});
 /** 
  * Si deseo que se sigan agregando elementos al archivo JSON para el caso de un array, debo descomentar las siguiente línea
  * await jsonDb.read();
