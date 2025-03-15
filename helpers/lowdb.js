@@ -1,6 +1,8 @@
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
-import jsonData from "../db/db.json" assert { type: "json" }
+import path from "path";
+import fs from "fs/promises";
+const jsonPath = path.join(process.cwd(), "db/db.json");
 
 const jsonDb = new Low(new JSONFile("db/db.json"), {});
 /** 
@@ -20,9 +22,10 @@ const storeData = async (data) => {
     }
 }
 
-const getData = () => {
+const getData = async () => {
     try {
-        return jsonData
+        const data = await fs.readFile(jsonPath, "utf-8");
+    return JSON.parse(data);
     } catch (error) {
         console.log(error);
     }
