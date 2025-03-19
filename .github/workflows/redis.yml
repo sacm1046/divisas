@@ -2,6 +2,14 @@ name: Redis
 
 on:
   workflow_dispatch:
+    inputs:
+      tipo:
+        description: "Descripción de la ejecución"
+        required: true
+        type: choice
+        options:
+          - "OPTION 1"
+          - "OPTION 2"
   # schedule:
   #   - cron: "0 0 * * *"
 
@@ -61,3 +69,4 @@ jobs:
 
       - name: Finalizar procesos en segundo plano
         run: kill $(lsof -t -i:3000) || true
+run-name: "Redis from {{ inputs.type }}"
