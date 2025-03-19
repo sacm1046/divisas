@@ -8,6 +8,7 @@ on:
         required: true
         type: choice
         options:
+          - " "
           - "OPTION 1"
           - "OPTION 2"
   # schedule:
@@ -69,4 +70,4 @@ jobs:
 
       - name: Finalizar procesos en segundo plano
         run: kill $(lsof -t -i:3000) || true
-run-name: "Redis from ${{ inputs.type }}"
+run-name: "Redis from ${{  inputs.type != ' ' && inputs.type || 'VALOR DEFECTO' }}"
