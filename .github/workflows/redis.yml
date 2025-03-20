@@ -8,7 +8,7 @@ on:
         required: false
         type: choice
         options:
-          - "[EMPTY]"
+          - " "
           - "OPTION 1"
           - "OPTION 2"
           - "OPTION 3"
