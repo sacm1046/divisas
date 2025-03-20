@@ -72,4 +72,4 @@ jobs:
 
       - name: Finalizar procesos en segundo plano
         run: kill $(lsof -t -i:3000) || true
-run-name: "Redis from ${{  inputs.type != ' ' && inputs.type || 'VALOR DEFECTO' }}"
+run-name: "${{ inputs.type != 'Redis from ' && inputs.type || 'Redis' }}"
